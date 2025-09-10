@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config';
 
 // Skeleton component for a single book card
 const BookCardSkeleton = () => (
@@ -27,7 +28,7 @@ const BookList = () => {
   const fetchBooks = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:3330/api/books');
+      const response = await axios.get(`${API_BASE_URL}/api/books`);
       setBooks(response.data);
       setError(null);
     } catch (error) {
@@ -44,7 +45,7 @@ const BookList = () => {
 
   const handleAddRandomBooks = async () => {
     try {
-      await axios.post('http://localhost:3330/api/books/populate-random', { count: numBooksToAdd });
+      await axios.post(`${API_BASE_URL}/api/books/populate-random`, { count: numBooksToAdd });
       fetchBooks(); // Refresh the book list
     } catch (error) {
       console.error('Error adding random books:', error);
