@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# ReadHaven Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This directory contains the frontend application for ReadHaven, built with React. It provides the user interface for browsing books, viewing details, and accessing book content.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+-   **React:** A JavaScript library for building user interfaces.
+-   **React Router:** Used for declarative routing within the application.
+-   **Bootstrap:** A popular CSS framework for responsive and mobile-first front-end web development.
+-   **`axios`:** Promise-based HTTP client for making requests to the backend API.
 
-### `npm start`
+## Components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   **`App.js`:** The main application component, handling routing and overall layout (navbar, footer).
+-   **`BookList.js`:** Displays a list of books, including search functionality, and allows adding random books. Features a skeleton UI for loading states and a placeholder for missing cover images.
+-   **`BookDetail.js`:** Shows detailed information about a single book. Features a skeleton UI for loading states and provides a link to view the book's content on an external Gutendex URL.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup
 
-### `npm test`
+1.  **Navigate to the `frontend` directory:**
+    ```bash
+    cd frontend
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Start the client:**
+    ```bash
+    npm start
+    ```
+    The frontend application will typically run on `http://localhost:3000`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Production Considerations
 
-### `npm run build`
+When deploying the frontend to a production environment, consider the following:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   **API URL:** The frontend currently communicates with the backend at `http://localhost:3330`. For production, you must change this to your deployed backend API URL. This is typically done using environment variables.
+    *   **Example (Create React App):** You can create a `.env.production` file in the `frontend` directory and add:
+        ```
+        REACT_APP_BACKEND_URL=https://your-production-backend-api.com
+        ```
+        Then, in your `axios` calls, use `process.env.REACT_APP_BACKEND_URL` instead of the hardcoded `http://localhost:3330`.
+-   **Build Process:** Create a production build of your React application.
+    ```bash
+    npm run build
+    ```
+    This will create an optimized `build` folder with static assets ready for deployment.
+-   **Serving Static Files:** The `build` folder needs to be served by a web server (e.g., Nginx, Apache) or a static site hosting service (e.g., Netlify, Vercel, GitHub Pages).
+-   **Performance Optimization:** The `npm run build` command handles many optimizations (minification, tree-shaking). Further optimizations might include image optimization, lazy loading components, and CDN usage.
+-   **Environment Variables:** Similar to the backend, manage environment variables securely in your production deployment platform.
