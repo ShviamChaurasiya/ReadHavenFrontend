@@ -1,51 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import books from '../data';
 
 const BookDetail = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`http://localhost:3330/api/books/${id}`);
-        setBook(response.data);
-      } catch (error) {
-        console.error('Error fetching book details:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBook();
+    const selectedBook = books.find((b) => b.id === parseInt(id));
+    setBook(selectedBook);
   }, [id]);
-
-  if (loading) {
-    return (
-      <div className="row">
-        <div className="col-md-4">
-          <div className="skeleton-placeholder skeleton-image" style={{ height: '350px' }}></div> {/* Adjusted height */} 
-        </div>
-        <div className="col-md-8">
-          <div className="skeleton-placeholder skeleton-text title" style={{ height: '2em', marginBottom: '1em' }}></div> {/* Used title class */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Used paragraph class */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Used paragraph class */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Placeholder for subjects */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Placeholder for translators */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Placeholder for bookshelves */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Placeholder for languages */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Placeholder for copyright */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Placeholder for media_type */} 
-          <div className="skeleton-placeholder skeleton-text paragraph short"></div> {/* Placeholder for download_count */} 
-          <div className="skeleton-placeholder skeleton-text paragraph" style={{ height: '6em' }}></div> {/* Used paragraph class */} 
-          <div className="skeleton-placeholder skeleton-button"></div>
-        </div>
-      </div>
-    );
-  }
 
   if (!book) {
     return <div>Book not found.</div>;
@@ -69,10 +33,10 @@ const BookDetail = () => {
           {book.download_count && <p><strong>Downloads:</strong> {book.download_count}</p>}
           <p>{book.description}</p>
           {book.book_url && (
-            <a 
-              href={book.book_url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={book.book_url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-primary"
             >
               Read Book
@@ -85,4 +49,3 @@ const BookDetail = () => {
 };
 
 export default BookDetail;
-
